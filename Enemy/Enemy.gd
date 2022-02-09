@@ -1,4 +1,4 @@
-extends KinematicBody2D
+ extends KinematicBody2D
 
 var y_positions = [100,150,200,500,550]
 var initial_position = Vector2.ZERO
@@ -20,12 +20,13 @@ func _ready():
 func _physics_process(_delta):
 	position += direction
 	position.y = initial_position.y + sin(position.x/20)*wobble
-	if position.x >= 1200:
+	if position.x >= Global.VP.x + 100:
 		queue_free()
 
 func damage(d):
 	health -= d
 	if health <= 0:
+		Global.update_score(500)
 		Effects = get_node_or_null("/root/Game/Effects")
 		if Effects != null:
 			var explosion = Explosion.instance()
